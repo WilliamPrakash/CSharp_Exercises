@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="LeetCode\" />
+    <None Remove="LeetCode\Easy\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LeetCode\" />
+    <Folder Include="LeetCode\Easy\" />
+  </ItemGroup>
 </Project>
