@@ -6,6 +6,53 @@ namespace CSharp_Exercises.LeetCode.Easy
 	
 	public class Easy_Problems
 	{
+        /* 1. Two Sum
+			Given an array of integers nums and an integer target, return indices of the
+			two numbers such that they add up to target.
+
+			You may assume that each input would have exactly one solution,
+			and you may not use the same element twice.
+
+			You can return the answer in any order.
+
+			Input: nums = [2,7,11,15], target = 9
+			Output: [0,1]
+
+			Input: nums = [2,7,11,15], target = 9
+			Output: [0,1]
+
+			Input: nums = [3,3], target = 6
+			Output: [0,1]
+		*/
+        public int[] TwoSum(int[] nums, int target)
+		{
+			int[] arr = { 2, 7, 11, 15 };
+			int targt = 9;
+			int difference = 0;
+			int[] indexes = { 0, 0 };
+
+			//find the first number that is < the targt
+			foreach(int i in arr)
+			{
+				
+				if (i < targt)
+				{
+                    difference = targt - i;
+					indexes[0] = i;
+				}
+			}
+
+			foreach(int i in arr)
+			{
+				if (i == difference)
+				{
+					indexes[1] = i;
+				}
+			}
+			
+			return indexes;
+		}
+
         /* 20. Valid Parentheses
 			Given a string s containing just the characters
 			'(', ')', '{', '}', '[' and ']', determine if

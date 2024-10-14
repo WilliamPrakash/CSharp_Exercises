@@ -28,7 +28,10 @@ Output: true
 Input: s = "(]"
 Output: false 
 */
-easyProblems.IsValid("()[]{}");
+//easyProblems.IsValid("()[]{}");
+
+int[] x = { 2, 7, 11, 15 };
+easyProblems.TwoSum(x,9);
 
 
 
