@@ -29,25 +29,24 @@ namespace CSharp_Exercises.LeetCode.Easy
 			int difference = 0;
 			int[] indexes = { 0, 0 };
 
-			// Find the first number that is < the targt
 			for (int i = 0; i < nums.Length; i++)
 			{
-				if (nums[i] < target)
+                // Find the first number that is < the target
+                if (nums[i] < target)
 				{
 					indexes[0] = i;
-                    // Remove that element from array
-                    //nums.Remove
-                    difference = target - nums[i];
-					break;
-				}
-			}
-
-			for (int i = 0; i < nums.Length; i++)
-			{
-				if (nums[i] == difference)
-				{
-					indexes[1] = i;
-					break;
+					difference = target - nums[i];
+					//now loop through the rest of the ints looking for difference
+					for (int j = i + 1; j < nums.Length; j++)
+					{
+						if (nums[j] == difference)
+						{
+							indexes[1] = j;
+							Console.WriteLine("");
+							i = nums.Length; //we need to fully break out of these loops
+                            break;
+						}
+					}
 				}
 			}
 			

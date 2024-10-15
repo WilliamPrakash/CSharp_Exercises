@@ -30,8 +30,8 @@ Output: false
 */
 //easyProblems.IsValid("()[]{}");
 
-int[] x = { 2, 7, 11, 15 };
-easyProblems.TwoSum(x,9);
+//int[] x = { 2, 7, 11, 15 };
+//easyProblems.TwoSum(x, 9);
 int[] x1 = { 3, 2, 4 };
 easyProblems.TwoSum(x1, 6);
 int[] x2 = { 3, 3 };
