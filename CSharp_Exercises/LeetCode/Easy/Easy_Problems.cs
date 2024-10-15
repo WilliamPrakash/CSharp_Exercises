@@ -18,35 +18,36 @@ namespace CSharp_Exercises.LeetCode.Easy
 			Input: nums = [2,7,11,15], target = 9
 			Output: [0,1]
 
-			Input: nums = [2,7,11,15], target = 9
-			Output: [0,1]
+			Input: nums = [3,2,4], target = 6
+			Output: [1,2]
 
 			Input: nums = [3,3], target = 6
 			Output: [0,1]
 		*/
         public int[] TwoSum(int[] nums, int target)
 		{
-			int[] arr = { 2, 7, 11, 15 };
-			int targt = 9;
 			int difference = 0;
 			int[] indexes = { 0, 0 };
 
-			//find the first number that is < the targt
-			foreach(int i in arr)
+			// Find the first number that is < the targt
+			for (int i = 0; i < nums.Length; i++)
 			{
-				
-				if (i < targt)
+				if (nums[i] < target)
 				{
-                    difference = targt - i;
 					indexes[0] = i;
+                    // Remove that element from array
+                    //nums.Remove
+                    difference = target - nums[i];
+					break;
 				}
 			}
 
-			foreach(int i in arr)
+			for (int i = 0; i < nums.Length; i++)
 			{
-				if (i == difference)
+				if (nums[i] == difference)
 				{
 					indexes[1] = i;
+					break;
 				}
 			}
 			
