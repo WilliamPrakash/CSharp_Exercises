@@ -1,4 +1,4 @@
-﻿using System
+﻿using System;
 using System.Collections;
 
 namespace CSharp_Exercises.LeetCode.Easy
@@ -73,17 +73,40 @@ namespace CSharp_Exercises.LeetCode.Easy
 		}
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
 		{
-			string num1,num2 = "";
-			List<ListNode> list = new List<ListNode> { l1, l2};
+			string temp = "";
+			int total = 0;
+			List<ListNode> list = new List<ListNode> { l1, l2 };
+
+			// Iterate through each num in each linked list (ListNode)
 			list.ForEach(l =>
 			{
-				while (l.next != null)
+				while (l != null)
 				{
-					//how to add to the correct string?
+					temp += l.val.ToString();
+					l = l.next;
 				}
+				Char[] numsAsChars = temp.ToCharArray(); // Make char array out of int string for reversing
+				Array.Reverse(numsAsChars); // Returns void, operates on the original array...
+				temp = new string(numsAsChars); // Turn reversed int chars back into a string
+				total += int.Parse(temp); // Convert to int
+				temp = "";
 			});
-            //while
-
+            
+			// Convert int back to linked list (ListNode)
+			// split num into char array
+			Char[] numsAsChar = total.ToString().ToCharArray(); // ASCII chars
+			Array.Reverse(numsAsChar); // Reverse
+			int asciiIntConverted = (int)char.GetNumericValue(numsAsChar[0]); // Convert ASCII char to int
+			ListNode ret = new ListNode(asciiIntConverted);
+            ListNode curr = ret;
+			// create a list of ListNodes like above, add to them, and then string them together?
+            for (int i = 1; i < numsAsChar.Length; i++)
+			{
+				asciiIntConverted = (int)char.GetNumericValue(numsAsChar[i]);
+                curr.next = new ListNode(asciiIntConverted);
+				curr = curr.next;
+				//ret.next.val = numsAsChar[i];
+			}
             return new ListNode(0);
 		}
 
