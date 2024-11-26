@@ -13,7 +13,6 @@
     <None Remove="Data_Structures\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="LeetCode\" />
     <Folder Include="LeetCode\Easy\" />
     <Folder Include="Data_Structures\" />
   </ItemGroup>
