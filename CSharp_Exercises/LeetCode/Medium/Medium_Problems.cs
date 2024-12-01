@@ -29,7 +29,7 @@ namespace CSharp_Exercises.LeetCode.Medium
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
             string temp = "";
-            int total = 0;
+            ulong total = 0;
             List<ListNode> list = new List<ListNode> { l1, l2 };
 
             /* Iterate through ListNode (Linked List) */
@@ -44,38 +44,64 @@ namespace CSharp_Exercises.LeetCode.Medium
                 Char[] numsAsChars = temp.ToCharArray(); // Only char arrays have the Reverse() function
                 Array.Reverse(numsAsChars); // Returns void, operates on the original array
                 temp = new string(numsAsChars);
-                total += int.Parse(temp);
+                total += ulong.Parse(temp);
                 temp = ""; // Wipe temp for next number
             });
 
-            /* Convert int total back to ListNode (head of Linked List) */
+            /* Convert int total to char array */
             Char[] numsAsChar = total.ToString().ToCharArray(); // ASCII chars
             Array.Reverse(numsAsChar);
-            int asciiIntConverted = (int)char.GetNumericValue(numsAsChar[0]); // Convert ASCII char to int
-            ListNode head = new ListNode(asciiIntConverted);
-            ListNode curr = head;
+            List<ListNode> totalListNodes = new List<ListNode>();
 
-            // Break if there's only one element
-            if (numsAsChar.Length <= 1)
+            /* Create ListNode for each char and add to a list */
+            for(int i = 0; i < numsAsChar.Length; i++)
             {
-                return head;
+                totalListNodes.Add(new ListNode( (int)char.GetNumericValue(numsAsChar[i]) ) );
             }
 
-            /* Iterate over the rest of the chars(ints) */
-            // This logic only works for 3 digits...
-            /*for (int i = 1; i < numsAsChar.Length; i++)
+            //ListNode head = new ListNode(totalListNodes[0].val);
+
+            /* Chain list of ListNodes together */
+            for (int i = 0; i < totalListNodes.Count - 1; i++)
             {
-                while (curr.next != null)
-                {
-                    curr = curr.next;
-                }
-
-                asciiIntConverted = (int)char.GetNumericValue(numsAsChar[i]);
-                curr.next = new ListNode(asciiIntConverted);
+                totalListNodes[i].next = totalListNodes[i+1];
             }
-            head.next = curr;*/
 
-            return head;
+            //Console.WriteLine(totalListNodes);
+
+            return totalListNodes[0];
         }
+
+        /* 3. Longest Substring Without Repeating Characters
+            Given a string s, find the length of the longest substring without repeating characters.
+            Input: s = "abcabcbb"
+            Output: 3
+            Input: s = "bbbb"
+            Output: 1
+        */
+        public int LengthOfLongestSubstring(string s)
+        {
+            char[] charArr = s.ToCharArray();
+            List<char> substring = new List<char>();
+            int longestLength = 0;
+
+            // Iterate over each char in the string
+            foreach (char c in charArr)
+            {
+                // If the char isn't in the substring, add it
+                // Upon duplicate, 
+                if (!substring.Contains(c))
+                {
+                    substring.Add(c);
+                }
+                else
+                {
+
+                }
+            }
+
+            return longestLength;
+        }
+
     }
 }
