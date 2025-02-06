@@ -52,24 +52,37 @@ namespace CSharp_Exercises.LeetCode.Easy
          */
 		public bool IsPalindrome(int x)
 		{
-			// All negatives aren't palindromes
+			// Negatives can't be palindromes
 			if (x < 0) { return false; }
 
 			// Break int arg into digit array
-			// Is there a more efficient way to do this?
-			char[] xChar = x.ToString().ToCharArray();
-			int[] xArray = new int[xChar.Length];
-			for (int i = 0; i < xChar.Length; i++)
+			char[] xCharArray = x.ToString().ToCharArray();
+			List<int> xIntArray = new List<int>();
+			for (int i = 0; i < xCharArray.Length; i++)
 			{
-                xArray[i] = xChar[i] - '0'; // (int)xChar[i] and Convert.ToInt32(xChar[i]) work too
-                i++;
+				xIntArray.Add(xCharArray[i] - '0'); // (int)xCharArray[i] and Convert.ToInt32(xCharArray[i]) work too
             }
 
+			// If odd number of ints, remove the middle
+			if (xIntArray.Count % 2 == 1 && xIntArray.Count > 1)
+			{
+				xIntArray.RemoveAt(xIntArray.Count % 2); 
+			}
+			else if (xIntArray.Count == 0)
+			{
+				return true;
+			}
+            //Console.WriteLine(xIntArray);
 
-            Console.WriteLine();
-
-			// LINQ version of what's above
-            // int[] result = yourInt.ToString().Select(o=> Convert.ToInt32(o) - 48 ).ToArray()
+			// Remove from front and back, and compare
+			int front = 0;
+			int back = xIntArray.Count - 1;
+			while(front < xIntArray.Count - 1)
+			{
+				if (xIntArray[front] != xIntArray[back]) { return false; }
+				front++;
+				back--;
+			}
 
             return true;
 		}

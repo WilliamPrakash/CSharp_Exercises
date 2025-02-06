@@ -7,4 +7,4 @@ using static System.Net.Mime.MediaTypeNames;
 Easy_Problems easyProblems = new Easy_Problems();
 Medium_Problems mediumProblems = new Medium_Problems();
 
-easyProblems.IsPalindrome(121);
+easyProblems.IsPalindrome(0);
