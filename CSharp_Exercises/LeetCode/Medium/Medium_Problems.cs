@@ -9,7 +9,7 @@ namespace CSharp_Exercises.LeetCode.Medium
     public class Medium_Problems
     {
         /* 2. Add Two Numbers
-			You are given two non-empty linked lists representing two non-negative integets. The digits are stored in reverse order,
+			You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order,
 			and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
 			You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 			Input: l1 = [2,4,3], l2 = [5,6,4]
@@ -28,48 +28,75 @@ namespace CSharp_Exercises.LeetCode.Medium
         }
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
-            string temp = "";
-            ulong total = 0;
-            List<ListNode> list = new List<ListNode> { l1, l2 };
+            // Error in last version: Unhandled exception. System.OverflowException: Value was either too large or too small for a UInt64.
 
-            /* Iterate through ListNode (Linked List) */
-            list.ForEach(l =>
+            // [2,4,3,8]  [5,6,4]
+            // [7,0,8,8]
+
+            ListNode l1Temp = l1, l2Temp = l2;
+            ListNode shortest, longest;
+
+            // Find shortest ListNode
+            while (true)
             {
-                // Iterate through each element in the ListNode
-                while (l != null)
+                if (l1Temp.next == null)
                 {
-                    temp += l.val.ToString();
-                    l = l.next;
+                    shortest = l1;
+                    longest = l2;
+                    break;
                 }
-                Char[] numsAsChars = temp.ToCharArray(); // Only char arrays have the Reverse() function
-                Array.Reverse(numsAsChars); // Returns void, operates on the original array
-                temp = new string(numsAsChars);
-                total += ulong.Parse(temp);
-                temp = ""; // Wipe temp for next number
-            });
-
-            /* Convert int total to char array */
-            Char[] numsAsChar = total.ToString().ToCharArray(); // ASCII chars
-            Array.Reverse(numsAsChar);
-            List<ListNode> totalListNodes = new List<ListNode>();
-
-            /* Create ListNode for each char and add to a list */
-            for(int i = 0; i < numsAsChar.Length; i++)
-            {
-                totalListNodes.Add(new ListNode( (int)char.GetNumericValue(numsAsChar[i]) ) );
+                else if (l2Temp.next == null)
+                {
+                    shortest = l2;
+                    longest = l1;
+                    break;
+                }
+                l1Temp = l1Temp.next;
+                l2Temp = l2Temp.next;
             }
 
-            //ListNode head = new ListNode(totalListNodes[0].val);
+            // Reset temp ListNodes
+            l1Temp = l1;
+            l2Temp = l2;
 
-            /* Chain list of ListNodes together */
-            for (int i = 0; i < totalListNodes.Count - 1; i++)
+            // Iterate over the shorter list, adding the elements to a new ListNode
+            ListNode l3Temp = new ListNode();
+            ListNode l3 = l3Temp;
+            Boolean addOne = false;
+            int nextDigitIncrement = 0;
+            while (shortest != null)
             {
-                totalListNodes[i].next = totalListNodes[i+1];
+                if (addOne == true) nextDigitIncrement = 1;
+                // Check to see if the sum of the two ListNode values is greater than 10
+                if (shortest.val + longest.val + nextDigitIncrement > 9)
+                {
+                    l3Temp.val = 10 % (shortest.val + longest.val + nextDigitIncrement);
+                    addOne = true; // add one to the next digit
+                }
+                else
+                {
+                    l3Temp.val = shortest.val + longest.val + nextDigitIncrement;
+                }
+                l3Temp.next = new ListNode();
+                l3Temp = l3Temp.next;
+                shortest = shortest.next;
+                longest = longest.next;
             }
+            Console.WriteLine(l3);
+            
 
-            //Console.WriteLine(totalListNodes);
+            // Add the rest of the vals in longest
+            while (longest != null)
+            {
+                //l3Temp = new ListNode(longest.val);
+                l3Temp = new ListNode(longest.val);
+                l3Temp = l3Temp.next;
+                longest = longest.next;
+            }
+            // Add l3Temp to l3?
+            Console.WriteLine(l3);
 
-            return totalListNodes[0];
+            return l3;
         }
 
         /* 3. Longest Substring Without Repeating Characters
