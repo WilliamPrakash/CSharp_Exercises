@@ -30,11 +30,11 @@ namespace CSharp_Exercises.LeetCode.Medium
         {
             // Error in last version: Unhandled exception. System.OverflowException: Value was either too large or too small for a UInt64.
 
-            // [2,4,3,8]  [5,6,4]
-            // [7,0,8,8]
+            // [9,9,9,9,9,9,9]  +  [9,9,9,9]  =  [8,9,9,9,0,0,0,1]
 
             ListNode l1Temp = l1, l2Temp = l2;
             ListNode shortest, longest;
+            bool equal = true;
 
             // Find shortest ListNode
             while (true)
@@ -55,47 +55,106 @@ namespace CSharp_Exercises.LeetCode.Medium
                 l2Temp = l2Temp.next;
             }
 
-            // Reset temp ListNodes
-            l1Temp = l1;
-            l2Temp = l2;
-
-            // Iterate over the shorter list, adding the elements to a new ListNode
+            // Iterate over the shorter list, adding to the vals in
+            // the longer list, while carrying the 1
             ListNode l3Temp = new ListNode();
             ListNode l3 = l3Temp;
             Boolean addOne = false;
             int nextDigitIncrement = 0;
             while (shortest != null)
             {
-                if (addOne == true) nextDigitIncrement = 1;
-                // Check to see if the sum of the two ListNode values is greater than 10
+                if (addOne) nextDigitIncrement = 1;
+                else nextDigitIncrement = 0;
+
+                // Check to see if the sum of the two ListNode values 10 or more
                 if (shortest.val + longest.val + nextDigitIncrement > 9)
                 {
-                    l3Temp.val = 10 % (shortest.val + longest.val + nextDigitIncrement);
-                    addOne = true; // add one to the next digit
+                    addOne = true;
+                    // If the total is greater than 10, subtract 10
+                    if ((shortest.val + longest.val + nextDigitIncrement) > 10)
+                    {
+                        l3Temp.val = ((shortest.val + longest.val + nextDigitIncrement) - 10) % 10;
+                    }
+                    // Else, just take the remainder
+                    else
+                    {
+                        l3Temp.val = (shortest.val + longest.val + nextDigitIncrement) % 10;
+                    }
                 }
                 else
                 {
                     l3Temp.val = shortest.val + longest.val + nextDigitIncrement;
+                    addOne = false;
+                    nextDigitIncrement = 0;
+                }
+                
+                // ONLY set up a new node at the end of the iteration if there's another node
+                if (shortest.next != null)
+                {
+                    l3Temp.next = new ListNode();
+                    l3Temp = l3Temp.next;
+                }
+                shortest = shortest.next;
+                longest = longest.next;
+
+            }
+
+            if (!equal)
+            {
+                l3Temp.next = new ListNode();
+                l3Temp = l3Temp.next;
+            }
+
+            /* ISSUE: [8,9,9,0,0,0,1] should be [8,9,9,9,0,0,0,1] */
+            // Iterate over the rest of the vals in longest
+            bool first = true;
+            while (longest != null)
+            {
+                // Move forward one only on the first iteration
+                if (first)
+                {
+                    l3Temp.next = new ListNode();
+                    l3Temp = l3Temp.next;
+                    first = false;
+                }
+
+                equal = false; // assigning this multiple times is unnecessary
+                // Add the current node value to the previous one
+                // Carry the 1 if necessary
+                if (addOne) nextDigitIncrement = 1;
+                else nextDigitIncrement = 0;
+
+                if (l3Temp.val +longest.val + nextDigitIncrement > 9)
+                {
+                    addOne = true;
+                    if ((l3Temp.val + longest.val + nextDigitIncrement) > 10)
+                    {
+                        l3Temp.val = (10 % (l3Temp.val + longest.val + nextDigitIncrement) - 10); // Remainder
+                    }
+                    else
+                    {
+                        l3Temp.val = (l3Temp.val + longest.val + nextDigitIncrement) % 10;
+                    }
+                }
+                else
+                {
+                    l3Temp.val = l3Temp.val + longest.val + nextDigitIncrement;
+                    addOne = false;
+                    nextDigitIncrement = 0;
                 }
                 l3Temp.next = new ListNode();
                 l3Temp = l3Temp.next;
-                shortest = shortest.next;
                 longest = longest.next;
             }
-            Console.WriteLine(l3);
-            
 
-            // Add the rest of the vals in longest
-            while (longest != null)
+            if (addOne) l3Temp.val = nextDigitIncrement;
+
+            // Remove extra node if lists are the same size
+            if (equal)
             {
-                //l3Temp = new ListNode(longest.val);
-                l3Temp = new ListNode(longest.val);
-                l3Temp = l3Temp.next;
-                longest = longest.next;
+                l3Temp = null;
             }
-            // Add l3Temp to l3?
-            Console.WriteLine(l3);
-
+            
             return l3;
         }
 
