@@ -28,17 +28,19 @@ namespace CSharp_Exercises.LeetCode.Medium
         }
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
-            // Error in last version: Unhandled exception. System.OverflowException: Value was either too large or too small for a UInt64.
-
-            // [9,9,9,9,9,9,9]  +  [9,9,9,9]  =  [8,9,9,9,0,0,0,1]
-
+            // 2,4,3  +  5,6,4  =  7,0,8
+            // Find the shortest ListNode
             ListNode l1Temp = l1, l2Temp = l2;
             ListNode shortest, longest;
-            bool equal = true;
+            bool equal = false;
 
-            // Find shortest ListNode
             while (true)
             {
+                if (l1Temp.next == null && l2Temp.next == null)
+                {
+                    equal = true;
+                }
+
                 if (l1Temp.next == null)
                 {
                     shortest = l1;
@@ -57,19 +59,17 @@ namespace CSharp_Exercises.LeetCode.Medium
 
             // Iterate over the shorter list, adding to the vals in
             // the longer list, while carrying the 1
-            ListNode l3Temp = new ListNode();
-            ListNode l3 = l3Temp;
+            ListNode l3Temp = new ListNode(), l3 = l3Temp;
             Boolean addOne = false;
             int nextDigitIncrement = 0;
             while (shortest != null)
             {
-                if (addOne) nextDigitIncrement = 1;
-                else nextDigitIncrement = 0;
+                //if (addOne) nextDigitIncrement++;
+                //else nextDigitIncrement = 0;
 
-                // Check to see if the sum of the two ListNode values 10 or more
+                // Check to see if we need to increment the next decimal place
                 if (shortest.val + longest.val + nextDigitIncrement > 9)
                 {
-                    addOne = true;
                     // If the total is greater than 10, subtract 10
                     if ((shortest.val + longest.val + nextDigitIncrement) > 10)
                     {
@@ -80,6 +80,8 @@ namespace CSharp_Exercises.LeetCode.Medium
                     {
                         l3Temp.val = (shortest.val + longest.val + nextDigitIncrement) % 10;
                     }
+                    addOne = true;
+                    nextDigitIncrement = 1;
                 }
                 else
                 {
@@ -99,34 +101,24 @@ namespace CSharp_Exercises.LeetCode.Medium
 
             }
 
+            // Add an extra node if one ListNode is longer
             if (!equal)
             {
                 l3Temp.next = new ListNode();
                 l3Temp = l3Temp.next;
             }
 
-            /* ISSUE: [8,9,9,0,0,0,1] should be [8,9,9,9,0,0,0,1] */
-            // Iterate over the rest of the vals in longest
-            bool first = true;
+            // Iterate over the rest of the vals in longest, carrying over
+            // any that remainder that needs to be added
+
+            /* IF EQUAL DO WE NEED TO ITERATE THROUGH LONGEST???*/
+            /* ^^^But is the logic actually an issue rn besides taking up resources?? */
+
             while (longest != null)
             {
-                // Move forward one only on the first iteration
-                if (first)
-                {
-                    l3Temp.next = new ListNode();
-                    l3Temp = l3Temp.next;
-                    first = false;
-                }
-
-                equal = false; // assigning this multiple times is unnecessary
-                // Add the current node value to the previous one
-                // Carry the 1 if necessary
-                if (addOne) nextDigitIncrement = 1;
-                else nextDigitIncrement = 0;
-
+                // 
                 if (l3Temp.val +longest.val + nextDigitIncrement > 9)
                 {
-                    addOne = true;
                     if ((l3Temp.val + longest.val + nextDigitIncrement) > 10)
                     {
                         l3Temp.val = (10 % (l3Temp.val + longest.val + nextDigitIncrement) - 10); // Remainder
@@ -135,6 +127,18 @@ namespace CSharp_Exercises.LeetCode.Medium
                     {
                         l3Temp.val = (l3Temp.val + longest.val + nextDigitIncrement) % 10;
                     }
+
+                    // Sometimes you won't need to add another one
+                    // but sometimes you will need to increment the next digit multiple times?
+                    if (nextDigitIncrement > 0 && l3Temp.val == 0)
+                    {
+                        nextDigitIncrement++;
+                    }
+                    else
+                    {
+                        nextDigitIncrement = 0;
+                        addOne = false;
+                    }
                 }
                 else
                 {
@@ -142,18 +146,18 @@ namespace CSharp_Exercises.LeetCode.Medium
                     addOne = false;
                     nextDigitIncrement = 0;
                 }
-                l3Temp.next = new ListNode();
-                l3Temp = l3Temp.next;
+                // only add if there's another val
+                if (longest.next != null)
+                {
+                    l3Temp.next = new ListNode();
+                    l3Temp = l3Temp.next;
+                    longest = longest.next;
+                }
                 longest = longest.next;
             }
 
+            // Remainder gets carried to last digit
             if (addOne) l3Temp.val = nextDigitIncrement;
-
-            // Remove extra node if lists are the same size
-            if (equal)
-            {
-                l3Temp = null;
-            }
             
             return l3;
         }
