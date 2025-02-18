@@ -28,12 +28,14 @@ namespace CSharp_Exercises.LeetCode.Medium
         }
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
-            // 2,4,3  +  5,6,4  =  7,0,8
-            // Find the shortest ListNode
             ListNode l1Temp = l1, l2Temp = l2;
             ListNode shortest, longest;
             bool equal = false;
 
+            // [9,9,9,9,9,9,9]  +  [9,9,9,9]  =  [8,9,9,9,0,0,0,1]
+            // actually outputting: [8,9,9,9,0,0,0,1]
+
+            // Find the shortest ListNode
             while (true)
             {
                 if (l1Temp.next == null && l2Temp.next == null)
@@ -57,16 +59,14 @@ namespace CSharp_Exercises.LeetCode.Medium
                 l2Temp = l2Temp.next;
             }
 
-            // Iterate over the shorter list, adding to the vals in
-            // the longer list, while carrying the 1
             ListNode l3Temp = new ListNode(), l3 = l3Temp;
             Boolean addOne = false;
             int nextDigitIncrement = 0;
+
+            // Iterate over the shorter list, adding to the vals in
+            // the longer list, while carrying the 1
             while (shortest != null)
             {
-                //if (addOne) nextDigitIncrement++;
-                //else nextDigitIncrement = 0;
-
                 // Check to see if we need to increment the next decimal place
                 if (shortest.val + longest.val + nextDigitIncrement > 9)
                 {
