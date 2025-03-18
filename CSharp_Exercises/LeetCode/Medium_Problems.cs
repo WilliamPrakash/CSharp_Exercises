@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace CSharp_Exercises.LeetCode.Medium
+namespace CSharp_Exercises.LeetCode
 {
     public class Medium_Problems
     {
@@ -158,22 +156,42 @@ namespace CSharp_Exercises.LeetCode.Medium
         public int LengthOfLongestSubstring(string s)
         {
             char[] charArr = s.ToCharArray();
-            List<char> substring = new List<char>();
+            List<char> uniqueSubString = new List<char>();
             int longestLength = 0;
 
-            // Iterate over each char in the string
-            foreach (char c in charArr)
-            {
-                // If the char isn't in the substring, add it
-                // Upon duplicate, 
-                if (!substring.Contains(c))
-                {
-                    substring.Add(c);
-                }
-                else
-                {
+            
+            /*  The starting char isn't necessarily included 
+                in the longest substring... Maybe we should
+                use pointers??? Front and back? Sliding window
+                problem I believe. So maybe we use pointers to
+                find all sets of unique substrings, and overrite
+                longestLength when we find one longer. */
 
+            /*  Have front pointer be first char, fully loop through,
+                then second char, etc */
+            // pwwkew -> wke
+
+            //int front, back;
+            for (int i = 0; i <= charArr.Length - 1; i++)
+            {
+                //front = back = i;
+                for (int j = i; j <= charArr.Length - 1; j++)
+                {
+                    if (!uniqueSubString.Contains(charArr[j]))
+                    {
+                        uniqueSubString.Add(charArr[j]);
+                    }
+                    else
+                    {
+                        if (uniqueSubString.Count > longestLength)
+                        {
+                            longestLength = uniqueSubString.Count;
+                        }
+                        break;
+                    }
                 }
+                // Wipe uniqueSubString
+                uniqueSubString.Clear();
             }
 
             return longestLength;

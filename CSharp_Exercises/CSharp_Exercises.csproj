@@ -9,11 +9,9 @@
 
   <ItemGroup>
     <None Remove="LeetCode\" />
-    <None Remove="LeetCode\Easy\" />
     <None Remove="Data_Structures\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="LeetCode\Easy\" />
     <Folder Include="Data_Structures\" />
   </ItemGroup>
 </Project>
