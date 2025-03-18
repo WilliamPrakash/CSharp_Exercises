@@ -6,6 +6,7 @@ namespace CSharp_Exercises.LeetCode
 {
     public class Medium_Problems
     {
+        #region Problem 2.
         /* 2. Add Two Numbers
 			You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order,
 			and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
@@ -145,7 +146,9 @@ namespace CSharp_Exercises.LeetCode
             
             return l3;
         }
+        #endregion
 
+        #region Problem 3.
         /* 3. Longest Substring Without Repeating Characters
             Given a string s, find the length of the longest substring without repeating characters.
             Input: s = "abcabcbb"
@@ -158,29 +161,17 @@ namespace CSharp_Exercises.LeetCode
             char[] charArr = s.ToCharArray();
             List<char> uniqueSubString = new List<char>();
             int longestLength = 0;
-
-            
-            /*  The starting char isn't necessarily included 
-                in the longest substring... Maybe we should
-                use pointers??? Front and back? Sliding window
-                problem I believe. So maybe we use pointers to
-                find all sets of unique substrings, and overrite
-                longestLength when we find one longer. */
-
-            /*  Have front pointer be first char, fully loop through,
-                then second char, etc */
             // pwwkew -> wke
 
-            //int front, back;
             for (int i = 0; i <= charArr.Length - 1; i++)
             {
-                //front = back = i;
                 for (int j = i; j <= charArr.Length - 1; j++)
                 {
                     if (!uniqueSubString.Contains(charArr[j]))
                     {
                         uniqueSubString.Add(charArr[j]);
                     }
+                    // issue: this is only adding up the longestLength 
                     else
                     {
                         if (uniqueSubString.Count > longestLength)
@@ -190,12 +181,16 @@ namespace CSharp_Exercises.LeetCode
                         break;
                     }
                 }
-                // Wipe uniqueSubString
+                if (uniqueSubString.Count > longestLength)
+                {
+                    longestLength = uniqueSubString.Count;
+                }
                 uniqueSubString.Clear();
             }
 
             return longestLength;
         }
+        #endregion
 
     }
 }
