@@ -11,7 +11,4 @@
     <None Remove="LeetCode\" />
     <None Remove="Data_Structures\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data_Structures\" />
-  </ItemGroup>
 </Project>
