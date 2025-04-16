@@ -22,4 +22,8 @@ dairyQueen.enqueueBack(7);
 // 5 2 17 8 14 7 30 13 1 22
 dairyQueen.printDeque();
 
-//dairyQueen.dequeueFront();
+dairyQueen.dequeueFront();
+dairyQueen.dequeueFront();
+dairyQueen.dequeueFront();
+
+dairyQueen.printDeque();

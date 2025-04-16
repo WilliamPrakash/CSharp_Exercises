@@ -21,7 +21,7 @@ namespace CSharp_Exercises.Data_Structures
         internal void enqueueFront(T item)
         {
             // When this.pointerBack is pointing to an index, that index is AVAILABLE to hold new data
-            if (this.pointerFront + 1 > this.pointerBack)
+            if (this.pointerFront > this.pointerBack)
             {
                 Console.WriteLine("Deque is full");
                 return;
@@ -35,7 +35,7 @@ namespace CSharp_Exercises.Data_Structures
         internal void enqueueBack(T item)
         {
             // When this.pointerFront is pointing to an index, that index is AVAILABLE to hold new data
-            if (this.pointerBack - 1 < this.pointerFront)
+            if (this.pointerBack < this.pointerFront)
             {
                 Console.WriteLine("Deque is full");
                 return;
