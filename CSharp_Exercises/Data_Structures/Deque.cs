@@ -11,11 +11,13 @@ namespace CSharp_Exercises.Data_Structures
         private List<T> deque;
         private int pointerFront;
         private int pointerBack;
-        internal Deque(int size)
+        private int size;
+        internal Deque(int s)
         {
-            this.deque = new List<T>(new T[size]);
+            this.size = s;
+            this.deque = new List<T>(new T[this.size]);
             this.pointerFront = 0;
-            this.pointerBack = size - 1;
+            this.pointerBack = this.size - 1;
         }
 
         internal void enqueueFront(T item)
@@ -57,15 +59,20 @@ namespace CSharp_Exercises.Data_Structures
             return dequeuedElement;
         }
 
-        internal void dequeueBack()
+        internal T dequeueBack()
         {
             // Always going to be removing from the same index: size - 1
+            T dequeuedElement = this.deque[this.size - 1];
+            this.deque.RemoveAt(size - 1);
+            this.pointerBack++;
+            this.deque.Insert(this.pointerBack, default(T));
             
+            return dequeuedElement;
         }
 
         internal void printDeque()
         {
-            // 5 2 17 8 14 7 30 13 1 22
+            // 5 2 17 8 14 101 73 7 30 13
             Console.WriteLine(this.deque);
         }
 
