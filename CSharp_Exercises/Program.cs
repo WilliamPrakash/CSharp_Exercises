@@ -8,9 +8,9 @@ Concepts cs = new Concepts();
 Easy_Problems easyProblems = new Easy_Problems();
 Medium_Problems mediumProblems = new Medium_Problems();
 
-Linq linq = new Linq();
-linq.TestConnection();
+//Linq linq = new Linq();
+//linq.TestConnection();
 
 // List arg or Array arg?
-//SelectionSort selectionSort = new SelectionSort(new List<int> { 9, 1, 4, 5, 0, 7, 2 });
-//selectionSort.Sort();
+SelectionSort selectionSort = new SelectionSort([9, 1, 4, 5, 0, 7, 2 ]);
+selectionSort.Sort();
