@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Collections; // contains the IEnumerable interface
-using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using CSharp_Exercises.Models;
 
 
 namespace CSharp_Exercises.Concepts
@@ -34,13 +35,15 @@ namespace CSharp_Exercises.Concepts
     */
     internal class Linq
     {
-        private SqlConnection connection;
+        //private SqlConnection connection;
+        SQL_DBContext context;
 
         public Linq()
         {
             // Get SQL connection string and create connection
-            GrabLocalDatabaseCredentials credentialGrabber = new GrabLocalDatabaseCredentials();
-            connection = new SqlConnection(credentialGrabber.sqlConnStr);
+            //GrabLocalDatabaseCredentials credentialGrabber = new GrabLocalDatabaseCredentials();
+            //connection = new SqlConnection(credentialGrabber.sqlConnStr);
+            context = new SQL_DBContext();
         }
 
         public void ExtensionMethods()
@@ -50,37 +53,44 @@ namespace CSharp_Exercises.Concepts
             /* First, FirstOrDefault, Last, LastOrDefault
             Get the first or last item in the sequence or throw an exception, or return the default
             value for the type, for example, 0 for an int and null for a reference type, if there
-            is not a first or last item.
-             */
-            string test = list.FirstOrDefault();
+            is not a first or last item. */
+            string? test = list.FirstOrDefault();
+
             /* Where
-            Returns a sequence of items that match a specified filter.
-            */
+            Returns a sequence of items that match a specified filter. */
             /* Single, SingleOrDefault
             Returns an item that matches a specific filter or throw an exception, or return the default
-            value for the type if there is not exactly one match.
-            */
-            test = list.Where(x => x == "css").Single();
+            value for the type if there is not exactly one match. */
+            test = list.Where(x => x == "css").SingleOrDefault();
+
             /* ElementAt, ElementAtOrDefault
             Returns an item at a specified index position or throws an exception, or returns the default
-            value for the type if there is not an item at that position.
-            */
+            value for the type if there is not an item at that position. */
+            test = list.ElementAtOrDefault(2);
+
             /* Select, SelectMany
             Project items into a different shape, that is, a different type, and flatten a nester
-            hierarchy of items
-            */
-            /*
+            hierarchy of items. */
+            test = list.Select(x => x = "html").ToString();
+
+            /* OrderBy, OrderByDescending, ThenBy, ThenByDescending
+            Sort items by a specified field or property. */
+            List<Employee> employees = context.Employees.ToList();
+            List<Employee> subList = employees.OrderByDescending(employee => employee.Id).ToList();
+
+            /* Order, OrderDescending
+            Sort items by the item itself */
+            subList = employees.OrderBy(employee => employee.Name).ToList();
+
+            /* Reverse
+            Reverse the order of the items */
+            subList.Reverse();// = employees.Reverse().ToList();
+
+            /* GroupBy, GroupJoin, Join
             
             */
-            /*
-            
-            */
-            /*
-            
-            */
-            /*
-            
-            */
+            Console.WriteLine();
+
             /*
             
             */
