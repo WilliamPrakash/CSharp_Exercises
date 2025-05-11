@@ -132,8 +132,7 @@ list.
 -A class that implements an interface can explicitly implement members of that interface. An
 explicitly implemented member can't be accessed through a class instance, but only through an instance
 of the interface. In addition, default interface members can only be accessed through an instance of
-the interface.
-*/
+the interface. */
 
 public interface Interface1
 {
