@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Runtime.InteropServices;
 
+namespace CSharp_Exercises.DAL;
 
 public class GrabLocalDatabaseCredentials
 {

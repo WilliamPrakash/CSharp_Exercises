@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace CSharp_Exercises.Concepts;
-
 
 /* Abstract modifier
 -Indicates that the thing being modified has a missing or incomplete implementation.
