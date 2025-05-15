@@ -5,17 +5,54 @@ namespace CSharp_Exercises.LeetCode;
 
 public class Easy_Problems
 {
-	/* 1. Two Sum ***Solved
-		Given an array of integers nums and an integer target, return indices of the
-		two numbers such that they add up to target.
-		You may assume that each input would have exactly one solution,
-		and you may not use the same element twice.
-		Input: nums = [2,7,11,15], target = 9
-		Output: [0,1]
-		Input: nums = [3,2,4], target = 6
-		Output: [1,2]
-	*/
-	public int[] TwoSum(int[] nums, int target)
+    #region Unsolved Problems
+    /* 66. Plus One
+	Given a large int represented as in int array, increment
+	the large int by 1 and return the resulting array
+	of digits 
+	Input: digits = [1,2,3]
+	Output: [1,2,4] 
+	Increment the large integer by one and return the resulting array of digits. */
+    public int[] PlusOne(int[] digits)
+	{
+		int end = digits.Length - 1;
+
+		while (end > -1 && (digits[end] + 1) > 9)
+		{
+			digits[end] = 0;
+			end--; // move to front of digits[]
+		}
+
+		// Still need to increment at this point
+		// At end of 9+1 digit incrementation (if any)
+		if (end == -1 && digits[0] == 0)
+		{
+			// Need to add a 1 to the front
+			int[] front = { 1 };
+			return front.Concat(digits).ToArray();
+        }
+		else // not at beginning of digits
+		{
+			digits[end] += 1;
+		}
+
+		//Console.WriteLine("");
+
+		return digits;
+	}
+    #endregion
+
+    #region Solved Problems
+    /* 1. Two Sum
+	Given an array of integers nums and an integer target, return indices of the
+	two numbers such that they add up to target.
+	You may assume that each input would have exactly one solution,
+	and you may not use the same element twice.
+	Input: nums = [2,7,11,15], target = 9
+	Output: [0,1]
+	Input: nums = [3,2,4], target = 6
+	Output: [1,2] */
+    public int[] TwoSum(int[] nums, int target)
 	{
 		int difference = 0;
 		int[] indexes = { 0, 0 };
@@ -45,10 +82,9 @@ public class Easy_Problems
 	}
 
 	/* 9. Palindrome Number
-		Given an integer x, return true if x is a palindrome, and false otherwise.
-		Input: 121, Output: true
-		Input: -121, Output: false
-	 */
+	Given an integer x, return true if x is a palindrome, and false otherwise.
+	Input: 121, Output: true
+	Input: -121, Output: false */
 	public bool IsPalindrome(int x)
 	{
 		// Negatives can't be palindromes
@@ -87,11 +123,10 @@ public class Easy_Problems
 	}
 
 
-	/* 20. Valid Parentheses ***Solved
-		Given a string s containing just the characters
-		'(', ')', '{', '}', '[' and ']', determine if
-		the input string is valid.
-	*/
+	/* 20. Valid Parentheses
+	Given a string s containing just the characters
+	'(', ')', '{', '}', '[' and ']', determine if
+	the input string is valid. */
 	public bool IsValid(string s)
 	{
 		// Short java solution - phoenix12steve
@@ -108,15 +143,5 @@ public class Easy_Problems
 
 		return brackets.Count == 0;
 	}
-
-
-	/* 66. Plus One
-		Given a large int represented as in int array, increment
-		the large int by 1 and return the resulting array
-		of digits
-	*/
-	public int[] PlusOne(int[] digits)
-	{
-		return digits;
-	}
+    #endregion
 }
