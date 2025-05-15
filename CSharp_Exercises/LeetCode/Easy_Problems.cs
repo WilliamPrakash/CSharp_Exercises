@@ -6,40 +6,6 @@ namespace CSharp_Exercises.LeetCode;
 public class Easy_Problems
 {
     #region Unsolved Problems
-    /* 66. Plus One
-	Given a large int represented as in int array, increment
-	the large int by 1 and return the resulting array
-	of digits 
-	Input: digits = [1,2,3]
-	Output: [1,2,4] 
-	Increment the large integer by one and return the resulting array of digits. */
-    public int[] PlusOne(int[] digits)
-	{
-		int end = digits.Length - 1;
-
-		while (end > -1 && (digits[end] + 1) > 9)
-		{
-			digits[end] = 0;
-			end--; // move to front of digits[]
-		}
-
-		// Still need to increment at this point
-		// At end of 9+1 digit incrementation (if any)
-		if (end == -1 && digits[0] == 0)
-		{
-			// Need to add a 1 to the front
-			int[] front = { 1 };
-			return front.Concat(digits).ToArray();
-        }
-		else // not at beginning of digits
-		{
-			digits[end] += 1;
-		}
-
-		//Console.WriteLine("");
-
-		return digits;
-	}
     #endregion
 
     #region Solved Problems
@@ -143,5 +109,40 @@ public class Easy_Problems
 
 		return brackets.Count == 0;
 	}
+
+    /* 66. Plus One
+	Given a large int represented as in int array, increment
+	the large int by 1 and return the resulting array
+	of digits 
+	Input: digits = [1,2,3]
+	Output: [1,2,4] 
+	Increment the large integer by one and return the resulting array of digits. */
+    public int[] PlusOne(int[] digits)
+    {
+        int end = digits.Length - 1;
+
+        while (end > -1 && (digits[end] + 1) > 9)
+        {
+            digits[end] = 0;
+            end--; // move to front of digits[]
+        }
+
+        // Still need to increment at this point
+        // At end of 9+1 digit incrementation (if any)
+        if (end == -1 && digits[0] == 0)
+        {
+            // Need to add a 1 to the front
+            int[] front = { 1 };
+            return front.Concat(digits).ToArray();
+        }
+        else // not at beginning of digits
+        {
+            digits[end] += 1;
+        }
+
+        //Console.WriteLine("");
+
+        return digits;
+    }
     #endregion
 }

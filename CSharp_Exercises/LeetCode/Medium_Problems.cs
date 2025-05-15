@@ -6,7 +6,22 @@ namespace CSharp_Exercises.LeetCode;
 
 public class Medium_Problems
 {
-    #region Problem 2.
+    #region Unsolved Problems
+    /* 78. Subsets
+    Given an integer array nums of unique elements, return all possible subsets (the power set).
+    The solution set must not contain duplicate subsets. Return the solution in any order. 
+
+    Input: nums = [1,2,3]
+    Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]] */
+    public IList<IList<int>> Subsets(int[] nums)
+    {
+
+
+        return new List<IList<int>>();
+    }
+    #endregion
+
+    #region Solved Problems
     /* 2. Add Two Numbers
         You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order,
         and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
@@ -146,16 +161,13 @@ public class Medium_Problems
 
         return l3;
     }
-    #endregion
 
-    #region Problem 3.
     /* 3. Longest Substring Without Repeating Characters
-        Given a string s, find the length of the longest substring without repeating characters.
-        Input: s = "abcabcbb"
-        Output: 3
-        Input: s = "bbbb"
-        Output: 1
-    */
+    Given a string s, find the length of the longest substring without repeating characters.
+    Input: s = "abcabcbb"
+    Output: 3
+    Input: s = "bbbb"
+    Output: 1 */
     public int LengthOfLongestSubstring(string s)
     {
         char[] charArr = s.ToCharArray();
