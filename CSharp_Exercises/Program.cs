@@ -4,14 +4,7 @@ using CSharp_Exercises.Data_Structures;
 using CSharp_Exercises.LeetCode;
 using CSharp_Exercises.Sorting_Algorithms;
 
-/* Objects */
-Concepts cs = new Concepts();
-Easy_Problems easyProblems = new Easy_Problems();
-Medium_Problems mediumProblems = new Medium_Problems();
+//int[] arr = new int[] { 0, 1, 3, 5, 6, 7, 9, 11, 12, 15 };
+BinarySearch binarySearch = new BinarySearch(new int[] { 0, 1, 2, 3, 5, 6, 7, 9, 11, 12, 15 });
+binarySearch.Sort(12);
 
-Linq linq = new Linq();
-linq.ExtensionMethods();
-
-// List arg or Array arg?
-/*SelectionSort selectionSort = new SelectionSort([9, 1, 4, 5, 0, 7, 2 ]);
-selectionSort.Sort();*/
