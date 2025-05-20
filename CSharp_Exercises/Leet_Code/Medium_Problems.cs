@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 
-namespace CSharp_Exercises.LeetCode;
+namespace CSharp_Exercises.Leet_Code;
 
 public class Medium_Problems
 {

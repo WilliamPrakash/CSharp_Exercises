@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace CSharp_Exercises.LeetCode;
+namespace CSharp_Exercises.Leet_Code;
 
 public class Easy_Problems
 {
