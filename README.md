@@ -1,4 +1,6 @@
 To Do:
-  1. Keep adding to /Concepts folder
-  2. Implement binary search, binary tree, and binary tree inversal
-  3. Finish LeetCode problem 78.
+-LeetCode problems 12. and 13. (Roman -> Int and vice versa)
+-Finish implementing HashTable_Custom.cs
+-Keep adding to /Concepts folder
+-Implement binary search, binary tree, and binary tree inversal
+-Finish LeetCode problem 78. Sets
