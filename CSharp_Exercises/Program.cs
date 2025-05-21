@@ -11,9 +11,8 @@ class Program
     public static void Main(string[] args)
     {
         HashTable_Custom<string, string> hashTable = new HashTable_Custom<string, string>(10);
-        KeyValue<string, string> keyValue = new KeyValue<string, string>();
-        keyValue.Key = "unicode";
-        keyValue.Value = "ascii";
+        KeyValue<string, string> keyValue = new KeyValue<string, string>(){
+            Key = "unicode", Value = "ascii" };
         hashTable.Add(keyValue);
     }
 }

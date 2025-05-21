@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Text.Encodings;
 
 namespace CSharp_Exercises.Data_Structures;
 
 // Source: https://stackoverflow.com/questions/625947/what-is-an-example-of-a-hashtable-implementation-in-c
 
+/* Structure (struct) types are value types: they contain an instance of the type.
+"Type" here being self-defined by what's in the struct.
+Value types are stores on the stack */
 public struct KeyValue<K, V>
 {
-	public K Key { get; set; }
-	public V Value { get; set; }
+	public required K Key { get; set; }
+	public required V Value { get; set; }
 }
 
 public class HashTable_Custom<K, V>
@@ -24,28 +28,49 @@ public class HashTable_Custom<K, V>
 
 	public void Add(KeyValue<K, V> keyValue)
 	{
-		// Generate hash code
-		int hash = CreateHash(keyValue.Key.ToString());
-		Console.WriteLine(hash);
+        if (keyValue.Key == null)
+        {
+			Console.WriteLine("Empty key.");
+            return;
+        }
+
+        // Attempt to convert key to string.
+        string? keyString;
+        try
+        {
+			keyString = keyValue.Key.ToString();
+			if (string.IsNullOrEmpty(keyString))
+			{
+				Console.WriteLine("Empty string.");
+				return;
+			}
+        }
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			throw new Exception(keyValue.Key + " cannot be converted to string");
+		}
+
+        // Generate hash index
+        int hashIndex = default(int);
+        hashIndex = CreateHash(keyString);
+        
+        //Console.WriteLine(keyString);
 	}
 
-	public int CreateHash(string hashMe)
+	public int CreateHash(string key)
 	{
 		int hash = -1;
+		// Convert string -> base64Encode to get byte array then convert that byte array to ascii?
+		//char[] hashMeChars = hashMe.ToString().ToCharArray();
+		byte[] byteArray = System.Text.Encoding.UTF8.GetBytes( key.ToString().ToCharArray() );
 
-		/* https://stackoverflow.com/questions/2624192/good-hash-function-for-strings
-		Usually hashes wouldn't do sums, otherwise stop
-		and pots will have the same hash.
-		Generally hashs take values and multiply it by a
-		prime number (makes it more likely to generate
-		unique hashes) So you could do something like: */
-		char[] hashMeChars = hashMe.ToString().ToCharArray();
-		for (int i = 0; i < hashMeChars.Length; i++)
+        /*for (int i = 0; i < hashMeChars.Length; i++)
 		{
 			byte[] b = System.Text.Encoding.UTF8.GetBytes( hashMeChars[i].ToString() );
 			//hash = 
 			Console.WriteLine(b);
-		}
+		}*/
 
 		// Check this.hashTable for index availability
 
