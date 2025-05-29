@@ -89,7 +89,7 @@ public class Easy_Problems
 		return true;
 	}
 
-    /* 12 Int to Roman
+    /* 13 Roman to Int
 	Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
 	Roman numerals are usually written largest to smallest from left to right. However,
