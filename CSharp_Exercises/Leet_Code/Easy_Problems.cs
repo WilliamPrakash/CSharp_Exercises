@@ -6,6 +6,7 @@ namespace CSharp_Exercises.Leet_Code;
 public class Easy_Problems
 {
     #region Unsolved Problems
+    
     #endregion
 
     #region Solved Problems
@@ -88,12 +89,117 @@ public class Easy_Problems
 		return true;
 	}
 
+    /* 12 Int to Roman
+	Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
-	/* 20. Valid Parentheses
+	Roman numerals are usually written largest to smallest from left to right. However,
+	the numeral for four is not IIII. Instead, the number four is written as IV. Because
+	the one is before the five we subtract it making four. The same principle applies to
+	the number nine, which is written as IX. There are six instances where subtraction is
+	used:
+	I can be placed before V (5) and X (10) to make 4 and 9.
+	X can be placed before L (50) and C (100) to make 40 and 90.
+	C can be placed before D (500) and M (1000) to make 400 and 900.
+
+	Input: s = "LVIII"
+	Output: 58
+	Explanation: L = 50, V= 5, III = 3.
+
+	Input: s = "MCMXCIV"
+	Output: 1994
+	Explanation: M = 1000, CM = 900, XC = 90 and IV = 4. */
+    enum Conversions
+    {
+        I = 1,
+        V = 5,
+        X = 10,
+        L = 50,
+        C = 100,
+        D = 500,
+        M = 1000
+    }
+    public int RomanToInt(string s)
+    {
+        // Turn s into a char array
+        // Iterate through the array in order, assigning a number to each char
+        // Check next char to see if current char gets subtracted
+        char[] sArray = s.ToCharArray();
+        int total = 0;
+        for (int i = 0; i < sArray.Length; i++)
+        {
+            switch (sArray[i])
+            {
+                case 'I':
+                    if (i + 1 < sArray.Length && sArray[i + 1] == 'V')
+                    {
+                        total += Conversions.V - Conversions.I;
+                        i++;
+                    }
+                    else if (i + 1 < sArray.Length && sArray[i + 1] == 'X')
+                    {
+                        total += Conversions.X - Conversions.I;
+                        i++;
+                    }
+                    else
+                    {
+                        total += (int)Conversions.I;
+                    }
+                    break;
+                case 'V':
+                    total += (int)Conversions.V; // why do I need a conversion here but not above?
+                    break;
+                case 'X':
+                    if (i + 1 < sArray.Length && sArray[i + 1] == 'L')
+                    {
+                        total += Conversions.L - Conversions.X;
+                        i++;
+                    }
+                    else if (i + 1 < sArray.Length && sArray[i + 1] == 'C')
+                    {
+                        total += Conversions.C - Conversions.X;
+                        i++;
+                    }
+                    else
+                    {
+                        total += (int)Conversions.X;
+                    }
+                    break;
+                case 'L':
+                    total += (int)Conversions.L;
+                    break;
+                case 'C':
+                    if (i + 1 < sArray.Length && sArray[i + 1] == 'D')
+                    {
+                        total += Conversions.D - Conversions.C;
+                        i++;
+                    }
+                    else if (i + 1 < sArray.Length && sArray[i + 1] == 'M')
+                    {
+                        total += Conversions.M - Conversions.C;
+                        i++;
+                    }
+                    else
+                    {
+                        total += (int)Conversions.C;
+                    }
+                    break;
+                case 'D':
+                    total += (int)Conversions.D;
+                    break;
+                case 'M':
+                    total += (int)Conversions.M;
+                    break;
+            }
+        }
+
+        return total;
+    }
+
+    /* 20. Valid Parentheses
 	Given a string s containing just the characters
 	'(', ')', '{', '}', '[' and ']', determine if
 	the input string is valid. */
-	public bool IsValid(string s)
+    public bool IsValid(string s)
 	{
 		// Short java solution - phoenix12steve
 		Stack<char> brackets = new Stack<char>();
