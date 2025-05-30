@@ -15,7 +15,8 @@ class Program
             Key = "unicode", Value = "ascii" };
         hashTable.Add(keyValue);*/
 
-        Easy_Problems easy_Problems = new Easy_Problems();
-        easy_Problems.RomanToInt("III");
+        Medium_Problems mediumProblems = new Medium_Problems();
+        mediumProblems.Subsets(new int[] {3, 2, 4, 1});
+        //mediumProblems.Subsets(new int[] { 1,2,3 });
     }
 }

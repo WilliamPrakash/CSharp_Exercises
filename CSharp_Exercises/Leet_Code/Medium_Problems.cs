@@ -7,18 +7,7 @@ namespace CSharp_Exercises.Leet_Code;
 public class Medium_Problems
 {
     #region Unsolved Problems
-    /* 78. Subsets
-    Given an integer array nums of unique elements, return all possible subsets (the power set).
-    The solution set must not contain duplicate subsets. Return the solution in any order. 
-
-    Input: nums = [1,2,3]
-    Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]] */
-    public IList<IList<int>> Subsets(int[] nums)
-    {
-
-
-        return new List<IList<int>>();
-    }
+    
     #endregion
 
     #region Solved Problems
@@ -201,6 +190,43 @@ public class Medium_Problems
         }
 
         return longestLength;
+    }
+
+    /* 78. Subsets
+    Given an integer array nums of unique elements, return all possible subsets (the power set).
+    The solution set must not contain duplicate subsets. Return the solution in any order. 
+
+    Input: nums = [1,2,3]
+    Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]] */
+    // Recursive version of this would use "Backtracking"
+    public IList<IList<int>> Subsets(int[] nums)
+    {
+        List<IList<int>> returnSubsets = new List<IList<int>>();
+        List<IList<int>> subsetsToAdd = new List<IList<int>>();
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            // Iterate over subsets
+            if (returnSubsets.Count > 0)
+            {
+                foreach (List<int> subset in returnSubsets)
+                {
+                    List<int> copy = new List<int>(subset);
+                    copy.Add(nums[i]);
+                    subsetsToAdd.Add(copy);
+                }
+                returnSubsets.AddRange(subsetsToAdd);
+                subsetsToAdd.Clear();
+            }
+            else
+            {
+                // Add blank and individual subsets for this number
+                returnSubsets.Add(new List<int>() { });
+                returnSubsets.Add(new List<int>() { nums[i] });
+            }
+
+        }
+        return returnSubsets;
     }
     #endregion
 }
