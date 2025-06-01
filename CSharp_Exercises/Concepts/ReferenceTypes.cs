@@ -29,10 +29,7 @@ reclaimed.
 -Garbage collection is the automatic memory management functionality of the CLR, which
 performs the reclamation.
 -All arrays are reference types, even if their elements are value types.
--Reference types fully support inheritance.
-
-
-*/
+-Reference types fully support inheritance. */
 internal class ReferenceTypes
 {
     // C# built-in and custom reference types
