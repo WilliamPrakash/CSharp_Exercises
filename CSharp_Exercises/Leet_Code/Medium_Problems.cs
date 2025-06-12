@@ -1,57 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using Microsoft.SqlServer.Server;
 
 namespace CSharp_Exercises.Leet_Code;
 
 public class Medium_Problems
 {
     #region Unsolved Problems
-    /* 12. Integer to Roman
-    -Roman numerals are formed by appending the conversions of decimal
-    place values from highest to lowest. Converting a decimal place
-    value into a Roman numeral has the following rules:
-    -If the value does not start with 4 or 9, select the symbol of the
-    maximal value that can be subtracted from the input, append that
-    symbol to the result, subtract its value, and convert the remainder
-    to a Roman numeral.
-    -If the value starts with 4 or 9 use the subtractive form representing
-    one symbol subtracted from the following symbol, for example, 4 is 1
-    (I) less than 5 (V): IV and 9 is 1 (I) less than 10 (X): IX. Only the
-    following subtractive forms are used: 4 (IV), 9 (IX), 40 (XL), 90 (XC),
-    400 (CD) and 900 (CM).
-    -Only powers of 10 (I, X, C, M) can be appended consecutively at most
-    3 times to represent multiples of 10. You cannot append 5 (V), 50 (L),
-    or 500 (D) multiple times. If you need to append a symbol 4 times use
-    the subtractive form.
     
-    Input: num = 3749
-    Output: "MMMDCCXLIX"
-    Explanation:
-    3000 = MMM as 1000 (M) + 1000 (M) + 1000 (M)
-     700 = DCC as 500 (D) + 100 (C) + 100 (C)
-      40 = XL as 10 (X) less of 50 (L)
-       9 = IX as 1 (I) less of 10 (X)
-    Note: 49 is not 1 (I) less of 50 (L) because the conversion is based on decimal places */
-    enum RomanInts
-    {
-        I = 1,
-        V = 5,
-        X = 10,
-        L = 50,
-        C = 100,
-        D = 500,
-        M = 1000
-    }
-    public string IntToRoman(int num)
-    {
-        string numStr = "";
-        /* Strategy:
-        If num can be divided by an int, append enum counterpart to string */
-
-
-        return numStr;
-    }
     #endregion
 
     #region Solved Problems
@@ -234,6 +188,122 @@ public class Medium_Problems
         }
 
         return longestLength;
+    }
+
+    /* 12. Integer to Roman
+    -Roman numerals are formed by appending the conversions of decimal
+    place values from highest to lowest. Converting a decimal place
+    value into a Roman numeral has the following rules:
+    -If the value does not start with 4 or 9, select the symbol of the
+    maximal value that can be subtracted from the input, append that
+    symbol to the result, subtract its value, and convert the remainder
+    to a Roman numeral.
+    -If the value starts with 4 or 9 use the subtractive form representing
+    one symbol subtracted from the following symbol, for example, 4 is 1
+    (I) less than 5 (V): IV and 9 is 1 (I) less than 10 (X): IX. Only the
+    following subtractive forms are used: 4 (IV), 9 (IX), 40 (XL), 90 (XC),
+    400 (CD) and 900 (CM).
+    -Only powers of 10 (I, X, C, M) can be appended consecutively at most
+    3 times to represent multiples of 10. You cannot append 5 (V), 50 (L),
+    or 500 (D) multiple times. If you need to append a symbol 4 times use
+    the subtractive form.
+    
+    Input: num = 3749
+    Output: "MMMDCCXLIX"
+    Explanation:
+    3000 = MMM as 1000 (M) + 1000 (M) + 1000 (M)
+     700 = DCC as 500 (D) + 100 (C) + 100 (C)
+      40 = XL as 10 (X) less of 50 (L)
+       9 = IX as 1 (I) less of 10 (X)
+    Note: 49 is not 1 (I) less of 50 (L) because the conversion is based on decimal places */
+    public string IntToRoman(int num)
+    {
+        string numStr = "";
+        Console.WriteLine(numStr);
+        Dictionary<char, int> romanInts = new Dictionary<char, int> {
+            {'M', 1000}, {'D', 500}, {'C', 100}, {'L', 50}, {'X', 10}, {'V', 5}, {'I', 1} };
+        List<char> validSubtractions = new List<char> { 'M', 'D', 'C', 'L', 'X', 'V' };
+
+        while (num > 0)
+        {
+            for (int i = 0; i < romanInts.Count; i++)
+            {
+
+                if (num >= romanInts.ElementAt(i).Value)
+                {
+                    numStr += romanInts.ElementAt(i).Key;
+                    num -= romanInts.ElementAt(i).Value;
+                    i = romanInts.Count - 1;
+                }
+                else
+                {
+                    if (validSubtractions.Contains(romanInts.ElementAt(i).Key))
+                    {
+                        // Only the following subtractive forms are used: 4(IV), 9(IX), 40(XL), 90(XC),
+                        // 400(CD) and 900(CM).
+                        switch (romanInts.ElementAt(i).Key)
+                        {
+                            case 'M':
+                                if (num >= romanInts.ElementAt(i).Value - 100)
+                                {
+                                    numStr += "C" + romanInts.ElementAt(i).Key.ToString();
+                                    num -= romanInts.ElementAt(i).Value - 100;
+                                    i = romanInts.Count - 1;
+                                }
+                                break;
+                            case 'D':
+                                if (num >= romanInts.ElementAt(i).Value - 100)
+                                {
+                                    numStr += "C" + romanInts.ElementAt(i).Key.ToString();
+                                    num -= romanInts.ElementAt(i).Value - 100;
+                                    i = romanInts.Count - 1;
+                                }
+                                break;
+                            case 'C':
+                                if (num >= romanInts.ElementAt(i).Value - 10)
+                                {
+                                    numStr += "X" + romanInts.ElementAt(i).Key.ToString();
+                                    num -= romanInts.ElementAt(i).Value - 10;
+                                    i = romanInts.Count - 1;
+                                }
+                                break;
+                            case 'L':
+                                if (num >= romanInts.ElementAt(i).Value - 10)
+                                {
+                                    numStr += "X" + romanInts.ElementAt(i).Key.ToString();
+                                    num -= romanInts.ElementAt(i).Value - 10;
+                                    i = romanInts.Count - 1;
+                                }
+                                break;
+                            case 'X':
+                                if (num >= romanInts.ElementAt(i).Value - 1)
+                                {
+                                    numStr += "I" + romanInts.ElementAt(i).Key.ToString();
+                                    num -= romanInts.ElementAt(i).Value - 1;
+                                    i = romanInts.Count - 1;
+                                }
+                                break;
+                            case 'V':
+                                if (num >= romanInts.ElementAt(i).Value - 1)
+                                {
+                                    numStr += "I" + romanInts.ElementAt(i).Key.ToString();
+                                    num -= romanInts.ElementAt(i).Value - 1;
+                                    i = romanInts.Count - 1;
+                                }
+                                break;
+                        }
+                    }
+
+                    // Remove enumVal when it's bigger than num itself (no longer need to check it)
+                    if (num < romanInts.ElementAt(i).Value)
+                    {
+                        romanInts.Remove(romanInts.ElementAt(i).Key);
+                        i--;
+                    }
+                }
+            }
+        }
+        return numStr;
     }
 
     /* 78. Subsets
