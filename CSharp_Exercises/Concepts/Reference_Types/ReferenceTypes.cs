@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CSharp_Exercises.Concepts;
+namespace CSharp_Exercises.Concepts.Reference_Types;
 
 /* Source: https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/
 Source: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types
@@ -33,9 +33,9 @@ performs the reclamation.
 internal class ReferenceTypes
 {
     // C# built-in and custom reference types
-    Object obj = new object(); // .NET type: System.Object
+    object obj = new object(); // .NET type: System.Object
     // "string" is an alias for the String class
-    String str = ""; // .NET type: System.String
+    string str = ""; // .NET type: System.String
     /* The delegate keyword declares a type derived from System.Delegate.
     System.Delegate is an abstract type. */
     Delegate? Delegate { get; set; } // .NET type: System.Delegate

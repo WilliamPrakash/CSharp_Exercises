@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Net.Cache;
 
-namespace CSharp_Exercises.Concepts;
+namespace CSharp_Exercises.Concepts.Value_Types;
 
 /* Source: https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/
 Source: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types
@@ -25,8 +26,10 @@ are the same thing.
 declared.
 -There's no separate heap allocation or garbage collection overhead for value-type
 variables.
--There are two categories of value types: struct and enum. The built-in numberic types
-are structs, and have fields and methods that you can access.
+-A value type can be one of the two following kinds:
+    1. A structure type, which encapsulates data and related functionality.
+    2. An enumeration type, which is defined by a set of named constants and represents
+       a choice or a combination of choices.
 -Value types are sealed.
 -A struct can implement one or more interfaces. You can cast a struct type to any
 interface type that it implements, which causes a boxing operation.
@@ -37,8 +40,8 @@ internal class ValueTypes
 {
     // C# built-in value types
     bool trueOrFalse = true; // .NET type: System.Boolean
-    byte eightBits = Byte.MaxValue; // .NET type: System.Byte
-    sbyte signedEightBits = SByte.MinValue; // .NET type: System.SByte
+    byte eightBits = byte.MaxValue; // .NET type: System.Byte
+    sbyte signedEightBits = sbyte.MinValue; // .NET type: System.SByte
     char character = 'c'; // .NET type: System.Char
     decimal dec = 1.0m; // .NET type: System.Decimal
     double doub = 2.0d; // .NET type: System.Double
@@ -59,8 +62,8 @@ internal class ValueTypes
         // Constructor
         public St(int yVal, int xVal)
         {
-            this.y = yVal;
-            this.x = xVal;
+            y = yVal;
+            x = xVal;
         }
         // Methods
         public void DisplayVals()
@@ -78,4 +81,8 @@ internal class ValueTypes
         D = 500,
         M = 1000
     }
+    // Tuples
+    (double, int) tup1 = (4.5, 3);
+    (decimal, char) tup2 = (80.8m, 'b');
+    (string Name, int Age) tup3 = (Name: "Will", Age: 26);
 }
